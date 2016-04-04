@@ -54,7 +54,6 @@ public final class SimpleService {
         @PUT("books/{id}/")
         Call<Book> updateBook(@Path("id") int bookId, @Body Book book);
 
-
         @DELETE("books/{id}/")
         Call<ResponseBody> deleteBook(@Path("id") int bookId);
 
@@ -68,14 +67,11 @@ public final class SimpleService {
         final BookAPI bookapi = retrofit.create(BookAPI.class);
         final Call<List<Book>> call = bookapi.getBooks();
 
-
         call.enqueue(new Callback<List<Book>>() {
 
 
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response1) {
-                System.out.println("success");
-                System.out.println("call" + call);
                 cbvalue.onResponse(call,response1);
             }
 
@@ -102,7 +98,6 @@ public final class SimpleService {
                 b.categories=response.body().categories;
                 b.lastCheckedOutBy=response.body().lastCheckedOutBy;
                 b.lastCheckedOut=response.body().lastCheckedOut;
-                System.out.println("the id of the book is"+response.body().id);
                 bvalue.onResponse(call, response);
 
             }
@@ -129,12 +124,10 @@ public final class SimpleService {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println(response.code());
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
             }
         });
     }
@@ -151,14 +144,10 @@ public final class SimpleService {
         call.enqueue(new Callback<Book>() {
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
-                System.out.println("inside put response code"+response.code());
-                System.out.println("insise put lastcheckeddate"+response.body().lastCheckedOut);
-                System.out.println("inside put lastcheckeddoutby"+response.body().lastCheckedOutBy);
             }
 
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
-
             }
 
         });
@@ -170,16 +159,11 @@ public final class SimpleService {
         System.out.println("I came here");
 
         BookAPI bookapi = retrofit.create(BookAPI.class);
-
         Call<ResponseBody> call = bookapi.clean();
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                System.out.println(response.message());
-                System.out.println(response.code());
-                System.out.println(response.raw());
-                System.out.println(response.headers());
             }
 
             @Override
@@ -195,64 +179,18 @@ public final class SimpleService {
 
     public static void delete(int id) throws IOException {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        System.out.println("I came here");
-        System.out.println("I came here"+id);
-
         BookAPI bookapi = retrofit.create(BookAPI.class);
 
         Call<ResponseBody> call = bookapi.deleteBook(id);
-
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                System.out.println(response.message());
-                System.out.println(response.code());
-                System.out.println(response.raw());
-                System.out.println(response.headers());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                try {
-                    throw t;
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
-                }
+
             }
         });
     }
-
-    public static void main(String... args) throws IOException {
-//       Retrofit retrofit = new Retrofit.Builder().baseUrl(API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-//       BookAPI bookapi = retrofit.create(BookAPI.class);
-//
-//        // GET
-//        Call<List<Book>> call = bookapi.getBooks();
-//        List<Book> books = call.execute().body();
-//
-//        // GET ONE
-//        Call<Book> call1 = bookapi.getBook(1);
-//        Book book = call1.execute().body();
-//
-//        // POST
-//       Book book2 = new Book("Shilpi Singh", "fiction", "The Martian", "Penguin");
-//       Call<Book> call2 = bookapi.createBook(book2);
-//       call2.execute();
-//
-       //  PUT
-//        Book book3 = new Book(null, null, "changed", null,"chn","chni");
-//        Call<Book> call3 = bookapi.updateBook(1, book3);
-//        call3.execute();
-
-//         // DELETE
-//        Call<Book> call4 = bookapi.deleteBook(2);
-//        call4.execute();
-//
-//        // CLEAN
-//        Call<ResponseBody> call5 = bookapi.clean();
-//        call5.execute();
-       //  }
-
-   }
-
 }

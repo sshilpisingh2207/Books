@@ -76,6 +76,8 @@ public class Add extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+
+    //validations
     @Override
     public void onBackPressed() {
         final TextView bookname = (TextView) findViewById(R.id.editText);

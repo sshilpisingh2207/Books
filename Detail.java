@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,10 +53,8 @@ public class Detail extends AppCompatActivity {
             }
         });
         final Context context = this;
-
         Bundle s = getIntent().getExtras();
         final int i = s.getInt("id");
-        System.out.println("got the id" + i);
         SimpleService.get(i, new Callback<SimpleService.Book>() {
 
             @Override
@@ -82,8 +79,6 @@ public class Detail extends AppCompatActivity {
                 String pattern = "yyyy-MM-dd HH:mm:ss zzz";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                 final String date = simpleDateFormat.format(new Date());
-                System.out.println(date);
-                System.out.println("check the date format" + date);
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.prompts, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -107,8 +102,6 @@ public class Detail extends AppCompatActivity {
             }
         });
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.share_menu, menu);
@@ -120,11 +113,6 @@ public class Detail extends AppCompatActivity {
         mShareActionProvider.setShareIntent(shareIntent);
         return true;
     }
-
-
-
-
-
 }
 
 

@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("msg", "The onStart() event");
-
-
         final ArrayList<Integer> Lid = new ArrayList<>();
-
         final ListView listView = (ListView) findViewById(R.id.listView);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Position: " + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, Detail.class);
                 int sed = Lid.get(position);
-                System.out.println("sed" + sed);
                 intent.putExtra("id", sed);
                 startActivity(intent);
             }
@@ -73,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 int position = Lid.get(pos);
                 AlertDialog dialbox = AskOption(position);
                 dialbox.show();
-
-
                 return true;
             }
         });
@@ -84,26 +74,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
 
-                System.out.println("inside response");
                 final ListView listView = (ListView) findViewById(R.id.listView);
                 final ArrayList<String> lv = new ArrayList<>();
 
                 for(int i=0;i<response.body().size();i++) {
-                    System.out.println("response" + response.body().get(i).title);
                     lv.add(response.body().get(i).title);
                     Lid.add(response.body().get(i).id);
-
                 }
 
                 ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, lv);
                 listView.setAdapter(itemsAdapter);
                 itemsAdapter.notifyDataSetChanged();
-                System.out.println("came inside main callback");
             }
 
             @Override
             public void onFailure(Call<List<Book>> call, Throwable t) {
-                System.out.print("main callback failed response");
             }
         };
 
@@ -113,30 +98,22 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     protected void onResume() {
         super.onResume();
-        Log.d("msg", "The onResume() event");
     }
 
     protected void onPause() {
         super.onPause();
-        Log.d("msg", "The onpause() event");
-
     }
 
     protected void onStop() {
         super.onStop();
-        Log.d("msg", "The onStop() event");
     }
 
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("msg", "The onDestroy() event");
     }
 
 
@@ -150,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
 
         switch (id) {
 
@@ -184,10 +160,8 @@ public class MainActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                         dialog.dismiss();
                         onStart();
-
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -195,8 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                })
-                .create();
+                }).create();
 
         return myQuittingDialogBox;
 
