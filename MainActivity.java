@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.shilpisingh.books.SimpleService.Book;
@@ -34,13 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-       // final ListView listView = (ListView) findViewById(R.id.listView);
-//
-//        try {
-//            service.getBooks(callback);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 int position = Lid.get(pos);
                 AlertDialog dialbox = AskOption(position);
                 dialbox.show();
-                //  Log.v("long clicked", "pos: " + position);
-                //  Log.v("long clicked", "id: " + id1);
+
 
                 return true;
             }
@@ -92,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                // System.out.println(response.body().toString());
-                //  System.out.println(response.body().get(1).title);
+
                 System.out.println("inside response");
                 final ListView listView = (ListView) findViewById(R.id.listView);
                 final ArrayList<String> lv = new ArrayList<>();
@@ -152,22 +142,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
 
         switch (id) {
-            case R.id.action_settings:
-                return true;
 
             case R.id.action_add:
                 Intent intent = new Intent(this, Add.class);
@@ -190,13 +175,10 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog AskOption(final int pos)
     {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                //set message, title, and icon
                 .setTitle("Delete")
                 .setMessage("Do you want to Delete")
-                        // .setIcon(R.drawable.)
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //your deleting code
                         try {
                             SimpleService.delete(pos);
                         } catch (IOException e) {

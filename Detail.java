@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,7 +68,6 @@ public class Detail extends AppCompatActivity {
                 catname.setText(response.body().categories);
                 lastcheckedby.setText(response.body().lastCheckedOutBy);
                 lastcheckeddate.setText(response.body().lastCheckedOut);
-                // System.out.print("the id  in detail activity is"+response.body().id);
             }
 
             @Override
@@ -82,24 +80,18 @@ public class Detail extends AppCompatActivity {
         Checkout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String pattern = "yyyy-MM-dd HH:mm:ss zzz";
-                Calendar cal= Calendar.getInstance();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                 final String date = simpleDateFormat.format(new Date());
                 System.out.println(date);
                 System.out.println("check the date format" + date);
-                // get prompts.xml view
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.prompts, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                // set prompts.xml to alertdialog builder
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
-                // set dialog message
                 alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // get user input and set it to result
-                                // edit text
                                 lastcheckedby.setText(userInput.getText());
                                 lastcheckeddate.setText(date.toString());
                                 SimpleService.put(i, String.valueOf(userInput.getText()), date.toString());
@@ -110,9 +102,7 @@ public class Detail extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
-                // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
                 alertDialog.show();
             }
         });
@@ -121,13 +111,9 @@ public class Detail extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.share_menu, menu);
-        // Get the menu item.
         MenuItem menuItem = menu.findItem(R.id.action_share);
-        // Get the provider and hold onto it to set/change the share intent.
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-        // Set share Intent.
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, "http://google.com/");

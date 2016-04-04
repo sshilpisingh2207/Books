@@ -121,7 +121,6 @@ public final class SimpleService {
 
         BookAPI bookapi = retrofit.create(BookAPI.class);
 
-        //Book book = new Book("Shilpi Singh2", "fiction2", "The Martian2", "Penguin2");
         Book book = new Book(author, categories, title, publisher,null,null);
 
         Call<ResponseBody> call = bookapi.createBook(book);
