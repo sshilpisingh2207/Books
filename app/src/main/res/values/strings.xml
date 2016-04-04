@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Books</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+    <string name="clean">clean</string>
+
+    <string name="title_activity_add1">Add Books</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="title_activity_clean">Clean</string>
+    <string name="title_activity_splash">Splash</string>
+
+    <string name="title_activity_MainActivity">Books</string>
+
+</resources>
