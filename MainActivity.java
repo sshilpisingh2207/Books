@@ -3,7 +3,9 @@ package com.example.shilpisingh.books;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,23 +16,37 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.shilpisingh.books.SimpleService.Book;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.R.color.holo_green_light;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SystemClock.sleep(TimeUnit.SECONDS.toMillis(1));
+        final ListView listView = (ListView) findViewById(R.id.listView);
 
+        View someView = findViewById(R.id.listView);
+        View root = someView.getRootView();
+        root.setBackgroundColor((Color.rgb(224,255,255)));
+
+
+        listView.setBackgroundColor(Color.rgb(135,206,250));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         final ArrayList<Integer> Lid = new ArrayList<>();
         final ListView listView = (ListView) findViewById(R.id.listView);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -85,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, lv);
                 listView.setAdapter(itemsAdapter);
                 itemsAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -148,8 +164,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private AlertDialog AskOption(final int pos)
-    {
+    private AlertDialog AskOption(final int pos) {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 .setTitle("Delete")
                 .setMessage("Do you want to Delete")

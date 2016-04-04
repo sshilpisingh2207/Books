@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,6 +44,9 @@ public class Detail extends AppCompatActivity {
         final TextView lastcheckeddate = (TextView) findViewById(R.id.editText10);
         final Button Checkout = (Button) findViewById(R.id.button4);
 
+        View someView = findViewById(R.id.editText5);
+        View root = someView.getRootView();
+        root.setBackgroundColor((Color.rgb(224, 255, 255)));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.shilpisingh.books;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,10 @@ public class Add extends AppCompatActivity implements View.OnClickListener {
         setSupportActionBar(toolbar);
         final Button Submit = (Button) findViewById(R.id.button);
         Submit.setOnClickListener(this);
+
+        View someView = findViewById(R.id.editText);
+        View root = someView.getRootView();
+        root.setBackgroundColor((Color.rgb(224, 255, 255)));
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +65,8 @@ public class Add extends AppCompatActivity implements View.OnClickListener {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+
+
                                     }
                                 });
                         alertDialog.show();
@@ -67,6 +74,10 @@ public class Add extends AppCompatActivity implements View.OnClickListener {
                     }
 
                     service.post(authorname.getText().toString(), catname.getText().toString(), bookname.getText().toString(), pubname.getText().toString());
+                            authorname.setText("Type Author name");
+                            catname.setText("Type Category name");
+                            pubname.setText("Type publisher name");
+                            bookname.setText("Type Book Title");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
